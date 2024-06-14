@@ -4,15 +4,11 @@ import 'package:flutter_animation_burger/widgets/background_widget.dart';
 import 'package:flutter_animation_burger/widgets/bottom_bar_widget.dart';
 import 'package:flutter_animation_burger/widgets/burger_widget.dart';
 import 'package:flutter_animation_burger/widgets/ingredient_widget.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  // const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -53,34 +49,37 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         width: 80,
                         height: 500,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: ingredientsList.length,
-                          reverse: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            var ingrient = ingredientsList[index];
-                            return index == 0 || index == 7 || index == 2
-                                ? Container()
-                                : IngredientWidget(
-                                    name: ingrient.name,
-                                    image: ingrient.image,
-                                    selected: ingrient.selected,
-                                    onTap: () {
-                                      setState(() {
-                                        ingrient.selected = !ingrient.selected;
-                                      });
-                                    },
-                                  );
+                        child: Consumer<IngredientsModel>(
+                          builder: (context, ingredientsModel, child) {
+                            return ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: ingredientsModel.ingredients.length,
+                              reverse: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                var ingredient =
+                                    ingredientsModel.ingredients[index];
+                                return index == 0 || index == 7 || index == 2
+                                    ? Container()
+                                    : IngredientWidget(
+                                        name: ingredient.name,
+                                        image: ingredient.image,
+                                        selected: ingredient.selected,
+                                        onTap: () {
+                                          ingredientsModel
+                                              .toggleSelection(index);
+                                        },
+                                      );
+                              },
+                            );
                           },
                         ),
                       ),
                     ],
                   ),
-                  // const SizedBox(height: 60),
                 ],
               ),
             ),
-            // const BottomBar(),
+            const BottomBar(),
           ],
         ),
       ),
