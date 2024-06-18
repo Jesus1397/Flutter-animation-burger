@@ -15,7 +15,7 @@ class BurgerWidget extends StatelessWidget {
           children: [
             Positioned(
               top: -30,
-              left: 0,
+              left: -20,
               right: 0,
               child: SizedBox(
                 height: 500,

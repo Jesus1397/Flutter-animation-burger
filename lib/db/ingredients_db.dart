@@ -7,7 +7,7 @@ class IngredientsModel extends ChangeNotifier {
       name: '',
       image: 'assets/bread-bottom.png',
       selected: true,
-      width: 260.0,
+      width: 20.0,
     ),
     Ingredient(
       name: 'Bacon',
