@@ -7,7 +7,6 @@ class IngredientsModel extends ChangeNotifier {
       name: '',
       image: 'assets/bread-bottom.png',
       selected: true,
-      width: 20.0,
     ),
     Ingredient(
       name: 'Bacon',
@@ -43,7 +42,6 @@ class IngredientsModel extends ChangeNotifier {
       name: '',
       image: 'assets/bread-top.png',
       selected: true,
-      width: 170,
     ),
   ];
 
